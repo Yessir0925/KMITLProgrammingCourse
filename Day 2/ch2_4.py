@@ -1,0 +1,7 @@
+print(" *** Distance *** ")
+u,a,t=input("Enter Velocity Acceleration Time: ").split(',')
+u = float(u)
+a = float(a)
+t = float(t)
+distance =  u*t+((1/2)*(a)*(t**2))
+print(f"Your Distance = {distance:0.2f}")

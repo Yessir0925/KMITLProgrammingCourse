@@ -1,0 +1,11 @@
+print(" *** ID card ****")
+student_id, full_name, nickname = input("Enter your student_ID full_name nickname : ").split()
+
+print("----------------------------------")
+print("| »-(¯`·.·´¯)->CARD<-(¯`·.·´¯)-« |")
+print("|                                |")
+print(f"| {full_name:<18s}{student_id:>10s} |")
+print(f"| {nickname:^32s} |")
+print("|                                |")
+print("| (-.-)Zzz....           (╯︵╰,) |")
+print("----------------------------------")
