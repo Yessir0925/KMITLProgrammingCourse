@@ -1,14 +1,32 @@
+"""Write a program that takes the height of a pyramid as input.
+
+Then display the pyramid as shown in the example.
+
+
+
+Note: in order to display a single back slash, you need ch ="\\"""
+
+""" *** Pyramid-V ***
+Enter height : 3
+  /\  
+ /..\ 
+/____\
+No indefinate loop
+===== End of program ====="""
+
 print(" *** Pyramid-V ***")
-usrinp = int(input("Enter height : ")) - 1
-pyramid = []
-pointer = 0
+h = input("Enter height : ")    
+h = int(h)
 
-while pointer <= usrinp - 1:
-    spaces = ' ' * (usrinp - pointer)
-    print(f"{spaces}/{''.join(pyramid)}\\")
-    pyramid.append("..")
-    pointer += 1
+for r in range(1, h+1, 1):
+    print(" "*(h-r),end='')    
+    print("/",end='')
+    if r != h:
+        print("."*((r-1)*2),end='')
+    else:
+        print("_"*((r-1)*2),end='')
+    print("\\", end='')
+    print()
 
-print(f"/{'_' * (usrinp * 2)}\\")
 
 print("===== End of program =====")
