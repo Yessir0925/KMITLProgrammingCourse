@@ -36,6 +36,5 @@ numList = [i for i in range(w*h)]
 
 DLMatrix =  [[w*r + c for c in range(w)] for r in range(h)]
 
-
 for rows in DLMatrix:
     print(" ".join(str(columns) for columns in rows))

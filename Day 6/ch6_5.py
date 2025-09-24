@@ -1,31 +1,19 @@
 print(" *** Rectangle down-left-up-left ***")
-col,row = input("Enter width height : ").split()
-col,row = int(col),int(row)
-matrix = []
-num = 1
-isInvert = False
-for i in range(col):
-    newCol = list(range(num,num+row))
-    if isInvert :
-        newCol = newCol[::-1]
-    isInvert = not isInvert
-    matrix.insert(0,newCol)
-    num = num+row
+w, h = map(int, input("Enter width height : ").split())
 
-transposedMatrix = []
-for j in range(row) :
-    newRow = []
-    for k in matrix:
-        newRow.append(k[j])
-    transposedMatrix.append(newRow)
+DLMatrix = [[0]*w for _ in range(h)]
+val = w*h
+for c in range(w):
+    if c % 2 == 0:                 # even column: top -> bottom
+        for r in range(h):
+            DLMatrix[r][c] = val
+            val -= 1
+    else:                           # odd column: bottom -> top
+        for r in range(h-1, -1, -1):
+            DLMatrix[r][c] = val
+            val -= 1
 
-for l in transposedMatrix :
-    strLine = ""
-    for m in l:
-        if strLine != "" and m < 10:
-            strLine = strLine+"  "
-        else :
-            strLine = strLine+" "
-        strLine = strLine+str(m)
-    print(strLine)
+field = len(str(w*h))
+for row in DLMatrix:
+    print(" ".join(f"{x:>{field}}" for x in row))
 print("===== End of program =====")

@@ -29,12 +29,18 @@ for hDP in range(h):
 
 CounterNumList = 0
 for slicePointer in range(len(DLMatrix)):
-    if slicePointer % 2 == 1:
-        DLMatrix[slicePointer] = (DLMatrix[slicePointer])[::-1]
-    for IncrementRowPointer in range(w):
-        NumList[CounterNumList] = DLMatrix[slicePointer][IncrementRowPointer]
-        CounterNumList += 1
-
+    if h%2 == 0:
+        if slicePointer % 2 == 1:
+            DLMatrix[slicePointer] = (DLMatrix[slicePointer])[::-1]
+        for IncrementRowPointer in range(w):
+            NumList[CounterNumList] = DLMatrix[slicePointer][IncrementRowPointer]
+            CounterNumList += 1
+    else:
+        if slicePointer % 2 == 0:
+            DLMatrix[slicePointer] = (DLMatrix[slicePointer])[::-1]
+        for IncrementRowPointer in range(w):
+            NumList[CounterNumList] = DLMatrix[slicePointer][IncrementRowPointer]
+            CounterNumList += 1
 
 """
 12,11,10,9,5,6,7,8,4,3,2,1
