@@ -6,6 +6,7 @@ Enter width height : 4 3
 10  9  4  3
 ===== End of program =====
 """
+#Simple For Loop
 
 print("*** Rectangle down-left-up-left ***")
 w,h = map(int,input("Enter width height : ").split())
