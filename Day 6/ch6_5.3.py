@@ -14,7 +14,7 @@ w, h = 4,4
 #map(int,input("Enter width height : ").split())
 
 Dir = [(-1,0),(1,0)]
- 
+for 
 
     
     
