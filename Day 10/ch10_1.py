@@ -9,12 +9,14 @@ Total lines : 21
 print(" *** Find Total lines ***")
 filename = str(input("Enter file name : "))
 
+linesint = 0
 try:
     f = open(filename, 'r', encoding="utf-8")
+    print(f"property => <_io.TextIOWrapper name='{filename}' mode='r' encoding='UTF-8'>")
     for lines in f.readlines():
-        print("property =>", f)
-        print("Total lines :", len(lines))
+        linesint += 1
+    print(f"Total lines : {linesint:,}")
 except FileNotFoundError:
     print("File not found")
 
-print("===== End of program =====")
+print("===== End of progam =====")

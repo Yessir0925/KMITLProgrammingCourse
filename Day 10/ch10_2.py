@@ -12,8 +12,7 @@ emptylines = 0
 totallines = 0
 try:
     f = open(filename, 'r', encoding="utf-8")
-    for line in f:
-        lines = f.readlines()
+    for line in f.readlines():
         if line.strip() == "":
             emptylines += 1
         totallines += 1
