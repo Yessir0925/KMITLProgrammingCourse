@@ -1,0 +1,49 @@
+classDiagram
+class User {
+  +String citizen_id
+  +String name
+  +Account account
+}
+
+class Account {
+  +String account_number
+  +float balance
+  +ATMCard card
+  +list transactions
+}
+
+class ATMCard {
+  +String card_number
+  +String pin
+  +Account account
+}
+
+class Transaction {
+  +String type
+  +float amount
+  +float resulting_balance
+  +String atm_id
+}
+
+class Bank {
+  +dict cards
+}
+
+class ATMMachine {
+  +String machine_id
+  +float cash
+  +int DAILY_LIMIT = 40000
+  +insert_card(bank, card_number, pin) Account
+  +deposit(account, amount) String
+  +withdraw(account, amount) String
+  +transfer(sender, receiver, amount) String
+}
+
+%% Relationships
+User "1" --> "0..1" Account : owns
+Account "1" --> "0..1" ATMCard : has
+Account "1" --> "0..*" Transaction : records
+ATMCard "1" --> "1" Account : linkedTo
+ATMMachine "1" --> "0..*" Transaction : creates
+Bank "1" --> "0..*" ATMCard : stores
+ATMMachine ..> Bank : uses
