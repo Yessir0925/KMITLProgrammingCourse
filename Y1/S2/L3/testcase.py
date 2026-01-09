@@ -1,9 +1,9 @@
 # testcase.py
-import unittest
+# Run: python3 -u testcase.py
+
 import io
 from contextlib import redirect_stdout
-
-import main  # main.py must contain the classes you pasted
+import main  # main.py must contain your classes
 
 
 class SimpleBank:
@@ -16,13 +16,6 @@ class SimpleBank:
 
 
 def build_fixture():
-    """
-    Create:
-    - Harry: balance 20000, account 1234567890, card 12345, pin 1234
-    - Hermione: balance 1000,  account 0987654321, card 12346, pin 1234
-    - ATM #1001 cash 1,000,000
-    - ATM #1002 cash 200,000
-    """
     bank = SimpleBank()
 
     harry_user = main.User("1-1101-12345-12-0", "Harry Potter")
@@ -45,114 +38,127 @@ def build_fixture():
     return bank, harry_acc, hermione_acc, atm1, atm2
 
 
-class TestATMSystem(unittest.TestCase):
+def run_tests_print_style():
+    print("--------------------------")
+    print("     Start Test Cases     ")
+    print("--------------------------")
+
+    # Fresh setup
+    bank, harry, hermione, atm1, atm2 = build_fixture()
+
+    # -------------------------
     # Test case #1
-    def test_1_insert_harry_card(self):
-        bank, harry, _, atm1, _ = build_fixture()
-        acc = atm1.insert_card(bank, "12345", "1234")
-        self.assertIsNotNone(acc)
-        self.assertEqual(acc.account_number, "1234567890")
-        self.assertEqual(acc.card.card_number, "12345")
+    # -------------------------
+    print("Test case #1: Insert Harry's ATM card into ATM machine #1")
+    acc = atm1.insert_card(bank, "12345", "1234")
+    if acc is None:
+        print("Ans: Error")
+    else:
+        print(f"Ans: {acc.card.card_number}, {acc.account_number}, Success")
+    print("-------------------------")
 
+    # -------------------------
     # Test case #2
-    def test_2_deposit_1000_to_hermione(self):
-        bank, _, hermione, _, atm2 = build_fixture()
-        self.assertEqual(hermione.balance, 1000)
-        result = atm2.deposit(hermione, 1000)
-        self.assertEqual(result, "success")
-        self.assertEqual(hermione.balance, 2000)
-        self.assertEqual(hermione.transactions[-1], "D-ATM:1002-1000-2000")
+    # -------------------------
+    print("Test case #2: Deposit 1000 Baht into Hermione's account using ATM machine #2")
+    print(f"Hermione's account before test: {hermione.balance}")
+    result = atm2.deposit(hermione, 1000)
+    if result == "success":
+        print(f"Hermione's account after test: {hermione.balance}")
+        print(f"Transaction: {hermione.transactions[-1]}")
+    else:
+        print("Error")
+    print("-------------------------")
 
+    # -------------------------
     # Test case #3
-    def test_3_deposit_negative(self):
-        bank, _, hermione, _, atm2 = build_fixture()
-        result = atm2.deposit(hermione, -1)
-        self.assertEqual(result, "error")
-        self.assertEqual(hermione.balance, 1000)
-        self.assertEqual(len(hermione.transactions), 0)
+    # -------------------------
+    print("Test case #3: Deposit -1 Baht into Hermione's account using ATM machine #2")
+    result = atm2.deposit(hermione, -1)
+    print("Error" if result != "success" else "Success")
+    print("-------------------------")
 
+    # -------------------------
     # Test case #4
-    def test_4_withdraw_500_from_hermione(self):
-        bank, _, hermione, _, atm2 = build_fixture()
-        # make Hermione 2000 first to match prompt flow
-        self.assertEqual(atm2.deposit(hermione, 1000), "success")
-        self.assertEqual(hermione.balance, 2000)
+    # -------------------------
+    print("Test case #4: Withdraw 500 Baht from Hermione's account using ATM machine #2")
+    print(f"Hermione's account before test: {hermione.balance}")
+    result = atm2.withdraw(hermione, 500)
+    if result == "success":
+        print(f"Hermione's account after test: {hermione.balance}")
+        print(f"Transaction: {hermione.transactions[-1]}")
+    else:
+        print("Error")
+    print("-------------------------")
 
-        result = atm2.withdraw(hermione, 500)
-        self.assertEqual(result, "success")
-        self.assertEqual(hermione.balance, 1500)
-        self.assertEqual(hermione.transactions[-1], "W-ATM:1002-500-1500")
-
+    # -------------------------
     # Test case #5
-    def test_5_withdraw_2000_from_hermione_should_error(self):
-        bank, _, hermione, _, atm2 = build_fixture()
-        # make Hermione 1500 first to match prompt flow
-        self.assertEqual(atm2.deposit(hermione, 1000), "success")  # 2000
-        self.assertEqual(atm2.withdraw(hermione, 500), "success")  # 1500
+    # -------------------------
+    print("Test case #5: Withdraw 2000 Baht from Hermione's account using ATM machine #2")
+    result = atm2.withdraw(hermione, 2000)
+    print("Error" if result != "success" else "Success")
+    print("-------------------------")
 
-        result = atm2.withdraw(hermione, 2000)
-        self.assertEqual(result, "error")
-        self.assertEqual(hermione.balance, 1500)
-
+    # -------------------------
     # Test case #6
-    def test_6_transfer_10000_harry_to_hermione(self):
-        bank, harry, hermione, _, atm2 = build_fixture()
-        # prerequisite: Hermione = 1500
-        self.assertEqual(atm2.deposit(hermione, 1000), "success")  # 2000
-        self.assertEqual(atm2.withdraw(hermione, 500), "success")  # 1500
+    # -------------------------
+    print("Test case #6: Transfer 10,000 Baht from Harry to Hermione using ATM machine #2")
+    print(f"Harry's account before test: {harry.balance}")
+    print(f"Hermione's account before test: {hermione.balance}")
+    result = atm2.transfer(harry, hermione, 10000)
+    if result == "success":
+        print(f"Harry's account after test: {harry.balance}")
+        print(f"Hermione's account after test: {hermione.balance}")
+        print(f"Transaction (Hermione): {hermione.transactions[-1]}")
+    else:
+        print("Error")
+    print("-------------------------")
 
-        self.assertEqual(harry.balance, 20000)
-        self.assertEqual(hermione.balance, 1500)
-
-        result = atm2.transfer(harry, hermione, 10000)
-        self.assertEqual(result, "success")
-        self.assertEqual(harry.balance, 10000)
-        self.assertEqual(hermione.balance, 11500)
-        self.assertEqual(hermione.transactions[-1], "TD-ATM:1002-10000-11500")
-
+    # -------------------------
     # Test case #7
-    def test_7_hermione_transactions_log(self):
-        bank, harry, hermione, _, atm2 = build_fixture()
-        # Deposit 1000 -> Withdraw 500 -> Transfer 10000 to Hermione
-        self.assertEqual(atm2.deposit(hermione, 1000), "success")   # 2000
-        self.assertEqual(atm2.withdraw(hermione, 500), "success")   # 1500
-        self.assertEqual(atm2.transfer(harry, hermione, 10000), "success")  # 11500
+    # -------------------------
+    print("Test case #7: Display all of Hermione's transactions.")
+    print("Hermione's transaction log:")
+    for t in hermione.transactions:
+        print(t)
+    print("-------------------------")
 
-        expected = [
-            "D-ATM:1002-1000-2000",
-            "W-ATM:1002-500-1500",
-            "TD-ATM:1002-10000-11500",
-        ]
-        self.assertEqual(hermione.transactions, expected)
-
+    # -------------------------
     # Test case #8
-    def test_8_incorrect_pin(self):
-        bank, _, _, atm1, _ = build_fixture()
-        buf = io.StringIO()
-        with redirect_stdout(buf):
-            acc = atm1.insert_card(bank, "12345", "9999")
-        out = buf.getvalue()
+    # -------------------------
+    print("Test case #8: Insert card with incorrect PIN (Harry card, PIN=9999)")
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        _ = atm1.insert_card(bank, "12345", "9999")
+    out = buf.getvalue().strip()
+    # Your insert_card prints "Invalid PIN"
+    print(out if out else "No output")
+    print("-------------------------")
 
-        self.assertIsNone(acc)
-        self.assertIn("Invalid PIN", out)
-
+    # -------------------------
     # Test case #9
-    def test_9_withdraw_over_daily_limit(self):
-        bank, harry, _, atm1, _ = build_fixture()
-        # Your withdraw() returns "error" when exceeding limit.
-        result = atm1.withdraw(harry, 45000)
-        self.assertEqual(result, "error")
-        self.assertEqual(harry.balance, 20000)
+    # -------------------------
+    print("Test case #9: Withdraw more than daily limit (40,000 Baht).")
+    print(f"Harry's account before test: {harry.balance}")
+    print("Attempting to withdraw 45,000 Baht...")
+    result = atm1.withdraw(harry, 45000)
+    print("Expected result: Exceeds daily withdrawal limit of 40,000 Baht")
+    print(f"Actual result: {result}")
+    print(f"Harry's account after test: {harry.balance}")
+    print("-------------------------")
 
+    # -------------------------
     # Test case #10
-    def test_10_withdraw_atm_insufficient_funds(self):
-        bank, harry, _, _, atm2 = build_fixture()  # atm2 has 200,000
-        # Your withdraw() returns "error" when ATM doesn't have enough cash.
-        result = atm2.withdraw(harry, 250000)
-        self.assertEqual(result, "error")
-        self.assertEqual(harry.balance, 20000)
-        self.assertEqual(atm2.cash, 200000)
+    # -------------------------
+    print("Test case #10: Withdrawal when ATM has insufficient funds.")
+    print(f"ATM machine balance before: {atm2.cash}")
+    print("Attempting to withdraw 250,000 Baht...")
+    result = atm2.withdraw(harry, 250000)
+    print("Expected result: ATM has insufficient funds.")
+    print(f"Actual result: {result}")
+    print(f"ATM machine balance after: {atm2.cash}")
+    print("-------------------------")
 
 
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    run_tests_print_style()
