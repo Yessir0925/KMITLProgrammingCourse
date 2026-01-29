@@ -14,14 +14,24 @@ class AppointmentScheduler:
     def add_attendance():
         pass    
 
-"""Appointment type: Weekly, name: "Weekly Meeting", date: Wednesday, location:  "Room C", 
-with members of the appointment: John Doe, Robert Johnson, Emily Davis. - 
-Activity #1 Name “Company Party” Date “2024-03-17” Location “Conference Room” 
-- Activity #2 Name “Company Visit” Date “2024-03-19” Location “Conference Room”
-"""
-#Split (,) & 
+class Notification:
+    def send(self, message):
+        raise NotImplementedError("Subclass must implement send()")
     
-#Sort polymorphism for notification class
+class EmailNotification(Notification):
+    def __init__(self, email):
+        self.email = email
+
+    def send(self, message):
+        print(f"[EMAIL] {message}")
+
+class SMSNotification(Notification):
+    def __init__(self, phone_number):
+        self.phone_number = phone_number
+
+    def send(self, message):
+        print(f"[SMS] {message}")
+
 class Appointment():
     def __init__(self, name, location, details, date, attendance = None, notification = None):
         self.name = name
@@ -31,9 +41,11 @@ class Appointment():
         self.attendance = attendance if attendance is not None else []  
         self.notification = notification
 
-    def notification():
-        pass
-    
+    def notify(self, message):
+        if self.notification is None:
+            raise ValueError("No notification set")
+        self.notification.send(message)
+
 class weekly_Meeting(Appointment):
     def __init__(self, name, location, details, date, attendance, time, notification):
         super().__init__(name, location, details, date, attendance, notification)
@@ -48,48 +60,3 @@ class one_time_meeting(Appointment):
         super().__init__(name, location, details, date, attendance, notification)
         if not self.attendance:
             raise ValueError("Attendance is mandatory")
-
-
-
-class EmailNotification(Notification):
-    def send(self, message):
-        print("Email:", message)
-
-class SMSNotification(Notification):
-    def send(self, message):
-        print("SMS:", message)
-
-
-
-
-
-    
-        
-                
-
-app = AppointmentScheduler()
-
-print("# # Test Case 1 : Add Appointment, add activity information, and add appointment information. ")
-app.view_appointments()            # Show all Appointments
-print()
-
-print("Test Case 2 : Edit Appointment")
-app.edit_appointment(title="Team Meeting #1",to="Team B Meeting #1")
-app.edit_appointment(location="Room B",to="Room C")
-app.view_appointments()            # Show all Appointments
-print()
-
-print("Test Case 3 : Delete Appointment using topic “Team Meeting #2”")
-app.delete_appointment(title="Team Meeting #2")
-app.view_appointments()            # Show all Appointments
-print()
-
-print("Test Case 4 : Add Attendance who receives appointments for one-time appointments and weekly appointments")
-app.add_attendance("Team B Meeting #1", john)
-app.add_attendance("Weekly Meeting", jane)
-app.view_appointments()            # Show all Appointments
-print()
-
-print("Test Case 5 : Search Attendance Search for individual appointments using the name Robert Johnson")
-app.show_person_in_appointment(john)
-print()
