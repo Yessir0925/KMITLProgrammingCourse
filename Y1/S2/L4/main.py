@@ -1,149 +1,211 @@
-class Member:
-    def __init__(self, name, email=None, phone_number=None):
+NewYear = False
+
+class Bank:
+    def __init__(self, name: str = "Bank"):
         self.name = name
-        self.email = email
-        self.phone_number = phone_number
+        self.cards = {}          
+        self.users = {}          
+        self.accounts = {}       
+        self.atms = {}           
+
+    def add_user(self, user: "User"):
+        self.users[user.citizen_id] = user
+
+    def search_user_from_id(self, citizen_id: str):
+        return self.users.get(citizen_id)
+
+    def add_account(self, account: "Account", owner: "User" = None):
+        self.accounts[account.account_number] = account
+        if owner is not None:
+            owner.account = account 
+
+    def search_account_from_account_no(self, account_number: str):
+        return self.accounts.get(account_number)
+
+    def add_card(self, card: "ATMCard"):
+        # store card in bank registry
+        self.cards[card.card_number] = card
+
+        if isinstance(card, DebitCard):
+            card.account.debit = card
+        else:
+            card.account.card = card
+
+    def search_account_from_card(self, card_number: str):
+        card = self.cards.get(card_number)
+        return card.account if card else None
+
+    def add_atm_machine(self, atm: "ATMMachine"):
+        self.atms[atm.machine_id] = atm
+
+    def search_atm_machine(self, machine_id: str):
+        return self.atms.get(machine_id)
 
 
-class AppointmentScheduler:
-    def __init__(self):
-        self.appointments = []
-
-    def view_appointments(self):
-        for ap in self.appointments:
-            print(ap.format_line())
-        return self.appointments
-
-    def add_appointment(self, appointment_obj):
-        self.appointments.append(appointment_obj)
-
-    def edit_appointment(self, **spargs):
-        to_value = spargs.get("to", None)
-        if to_value is None:
-            return
-
-        field = None
-        old_value = None
-        for k, v in spargs.items():
-            if k != "to":
-                field = k
-                old_value = v
-                break
-        if field is None:
-            return
-
-        for obj in self.appointments:
-            if field == "title":
-                if hasattr(obj, "name") and obj.name == old_value:
-                    obj.name = to_value
-                elif hasattr(obj, "title") and obj.title == old_value:
-                    obj.title = to_value
-
-            elif field == "location":
-                if getattr(obj, "location", None) == old_value:
-                    obj.location = to_value
-
-    def delete_appointment(self, title):
-        kept = []
-        for obj in self.appointments:
-            if hasattr(obj, "name") and obj.name == title:
-                continue
-            if hasattr(obj, "title") and obj.title == title:
-                continue
-            kept.append(obj)
-        self.appointments = kept
-
-    def add_attendance(self, appointment_title, member):
-        for obj in self.appointments:
-            if hasattr(obj, "name") and obj.name == appointment_title:
-                if not hasattr(obj, "attendance") or obj.attendance is None:
-                    obj.attendance = []
-                obj.attendance.append(member) 
-                return
-
-    def show_person_in_appointment(self, member):
-        for obj in self.appointments:
-            if hasattr(obj, "attendance") and obj.attendance:
-                if any(m.name == member.name for m in obj.attendance):
-                    print(obj.format_line())
-
-    def send_notifications(self, appointment_title, message):
-        for obj in self.appointments:
-            if hasattr(obj, "name") and obj.name == appointment_title:
-                for m in obj.attendance:
-                    if getattr(m, "phone_number", None):
-                        print(f"Sending SMS notification to : {m.phone_number} with message : {message}")
-                    else:
-                        print(f"Sending email notification to: {m.email} with message : {message}")
-                return
-
-
-class Notification:
-    def send(self, message):
-        raise NotImplementedError("Subclass must implement send()")
-
-
-class EmailNotification(Notification):
-    def __init__(self, email):
-        self.email = email
-
-    def send(self, message):
-        print(f"[EMAIL] {message}")
-
-
-class SMSNotification(Notification):
-    def __init__(self, phone_number):
-        self.phone_number = phone_number
-
-    def send(self, message):
-        print(f"[SMS] {message}")
-
-
-class Appointment:
-    def __init__(self, name, location, details, date, attendance=None, notification=None):
+class User:
+    def __init__(self, citizen_id: str, name: str):
+        self.citizen_id = citizen_id
         self.name = name
-        self.location = location
-        self.details = details
-        self.date = date
-        self.attendance = attendance if attendance is not None else []
-        self.notification = notification
-
-    def notify(self, message):
-        if self.notification is None:
-            raise ValueError("No notification set")
-        self.notification.send(message)
-
-    def format_line(self):
-        names = ",".join(m.name for m in self.attendance)
-        return f"Topic : {self.name} Location : {self.location} on {self.date} Attn: {names}"
+        self.account = None
 
 
-class weekly_Meeting(Appointment):
-    def __init__(self, name, location, details, date, attendance=None, time=None, notification=None):
-        super().__init__(name, location, details, date, attendance, notification)
-        if self.notification is None:
-            raise ValueError("Require Notification")
-        if not self.attendance:
-            raise ValueError("Require Attendance")
-        self.time = time
+class Account:
+    def __init__(self, account_number: str, balance: float):
+        self.account_number = account_number
+        self.balance = balance
+        self.card = None
+        self.debit = None
+        self.transactions = []
 
-    def format_line(self):
-        names = ",".join(m.name for m in self.attendance)
-        return f"Weekly AP, Topic : {self.name} Location : {self.location} on {self.date} Attn: {names}"
+    @property
+    def account_no(self):
+        return self.account_number
+
+    @property
+    def amount(self):
+        return self.balance
+
+    def get_card(self):
+        return self.debit if self.debit is not None else self.card
+
+    def __iter__(self):
+        return iter(self.transactions)
 
 
-class one_time_meeting(Appointment):
-    def __init__(self, name, location, details, date, attendance=None, notification=None):
-        super().__init__(name, location, details, date, attendance, notification)
-        if not self.attendance:
-            raise ValueError("Attendance is mandatory")
+class SavingAccount(Account):
+    def __init__(self, account_number: str, balance: float):
+        super().__init__(account_number, balance)
+        if NewYear:
+            self.balance *= (1 - (0.5 / 100))
 
 
-class Activity:
-    def __init__(self, title, location, date):
-        self.title = title
-        self.location = location
-        self.date = date
+class FixedDeposit(Account):
+    def __init__(self, account_number: str, balance: float):
+        super().__init__(account_number, balance)
+        if NewYear:
+            self.balance *= (1 - (2.5 / 100))
 
-    def format_line(self):
-        return f"Activity, Topic : {self.title} Location : {self.location} on {self.date}"
+
+# Saving - 0.5
+# Fixed Deposit - 2.5
+
+
+class ATMCard:
+    def __init__(self, card_number: str, account: Account, pin: str):
+        self.card_number = card_number
+        self.account = account
+        self.pin = pin
+        if NewYear:
+            self.account.balance -= 150
+
+    @property
+    def card_no(self):
+        return self.card_number
+
+
+class DebitCard(ATMCard):
+    def __init__(self, card_number: str, account: Account, pin: str):
+        super().__init__(card_number, account, pin)
+        if NewYear:
+            self.account.balance -= 300
+
+
+# Debit Card - 300B
+# ATM - 150B
+
+
+class ATMMachine:
+    DAILY_LIMIT = 40000
+
+    def __init__(self, machine_id: str, initial_amount: float = 1000000):
+        self.machine_id = machine_id
+        self.cash = initial_amount
+
+    def insert_card(self, arg1, arg2=None, arg3=None):
+        if isinstance(arg1, ATMCard) and isinstance(arg2, str) and arg3 is None:
+            card = arg1
+            pin = arg2
+            if card.pin != pin:
+                print("Invalid PIN")
+                return None
+            return "Success"
+
+        bank = arg1
+        card_number = arg2
+        pin = arg3
+
+        if card_number not in bank.cards:
+            return None
+
+        card = bank.cards[card_number]
+        if card.pin != pin:
+            print("Invalid PIN")
+            return None
+
+        return "Success"
+
+    def deposit(self, account: Account, amount: float):
+        if amount <= 0:
+            return "error"
+
+        account.balance += amount
+        account.transactions.append(
+            f"D-ATM:{self.machine_id}-{amount}-{account.balance}"
+        )
+        return "success"
+
+    def withdraw(self, account: Account, amount: float):
+        if amount <= 0:
+            return "error"
+        if amount > account.balance:
+            return "error"
+        if amount > self.DAILY_LIMIT:
+            return "error"
+        if amount > self.cash:
+            return "error"
+
+        account.balance -= amount
+        self.cash -= amount
+        account.transactions.append(
+            f"W-ATM:{self.machine_id}-{amount}-{account.balance}"
+        )
+        return "success"
+
+    def transfer(self, sender: Account, receiver: Account, amount: float):
+        if amount <= 0:
+            return "error"
+        if amount > sender.balance:
+            return "error"
+
+        sender.balance -= amount
+        receiver.balance += amount
+
+        sender.transactions.append(
+            f"TW-ATM:{self.machine_id}-{amount}-{sender.balance}"
+        )
+        receiver.transactions.append(
+            f"TD-ATM:{self.machine_id}-{amount}-{receiver.balance}"
+        )
+        return "success"
+
+
+class EDCMachine:
+    def __init__(self, serial: str, seller: str):
+        self.serial = serial
+        self.seller = seller
+
+    def paid(self, card: ATMCard, amount: float, receiver: Account):
+        return self.transfer(card.account, receiver, amount)
+
+    def transfer(self, sender: Account, receiver: Account, amount: float):
+        if amount <= 0:
+            return "error"
+        if amount > sender.balance:
+            return "error"
+
+        sender.balance -= amount
+        receiver.balance += amount
+
+        sender.transactions.append(f"TW-EDC:{self.serial}-{amount}-{sender.balance}")
+        receiver.transactions.append(f"TD-EDC:{self.serial}-{amount}-{receiver.balance}")
+        return "success"
