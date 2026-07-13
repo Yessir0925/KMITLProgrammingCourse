@@ -39,3 +39,43 @@ Error input : 1
 --------------------
 """
 
+usrinp = input("input : ")
+usrlist = [x for x in usrinp.split(',')]
+error_dequeue = 0
+error_input = 0
+counter = 0
+queue = []
+
+for step in usrlist:
+
+    if step[0] == 'E':
+        try:
+            count = int(step[1:])
+            for i in range(count):
+                queue.append(f'*{counter}')
+                counter += 1
+        except ValueError:
+            error_input += 1
+    elif step[0] == 'D':
+        try:
+            count = int(step[1:])
+            for i in range(count):
+                if queue:
+                    queue.pop()
+                else:
+                    error_dequeue += 1
+        except ValueError:
+            error_input += 1
+    else:
+        error_input += 1
+
+    print(f"Step : {step}")
+    if step[0] == 'E':
+        print(f"Enqueue : {queue}")
+    elif step[0] == 'D':
+        print(f"Dequeue : {queue}")
+    else:
+        print(f"{queue}")
+    print(f"Error Dequeue : {error_dequeue}")
+    print(f"Error input : {error_input}")
+    print("--------------------")

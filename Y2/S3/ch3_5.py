@@ -23,4 +23,50 @@ Note: If there are no cars in the alley, set the input to 0 in the second positi
 Enter max of car / car in soi / operation : 5 / 1,2,3,4 / arrive 5
 car 5 arrive! : Add Car 5
 [1, 2, 3, 4, 5]
+
+******** Parking Lot ********
+Enter max of car / car in soi / operation : 5 / 1,2,3,4 / arrive 1
+car 1 already in soi
+[1, 2, 3, 4]
+
+
 """
+
+print("******** Parking Lot ********")
+usrinp = input("Enter max of car / car in soi / operation : ")
+max_car, car_in_soi, operation = usrinp.split(' / ')
+cars = [int(x) for x in car_in_soi.split(',')]
+
+class ParkingLot:
+    def __init__(self, max_car, cars):
+        self.max_car = max_car
+        self.cars = [y for y in cars]
+
+    def arrive(self, car_number):
+        if len(self.cars) < self.max_car:
+            if car_number in self.cars:
+              print(f"car {car_number} already in soi")
+            else:
+              self.cars.append(car_number)
+              print(f"car {car_number} arrive! : Add Car {car_number}")
+        else:
+            print(f"car {car_number} cannot arrive : Soi Full")
+
+    def depart(self, car_number):
+        if car_number in self.cars:
+            self.cars.remove(car_number)
+            print(f"car {car_number} depart ! : Car {car_number} was remove")
+        else:
+            print(f"car {car_number} cannot depart : Dont Have Car {car_number}")
+
+    def __str__(self):
+        return str(self.cars)
+
+parking_lot = ParkingLot(int(max_car), cars)
+operation = operation.split(' ')
+if operation[0] == 'arrive':
+    parking_lot.arrive(int(operation[1]))
+elif operation[0] == 'depart':
+    parking_lot.depart(int(operation[1]))
+
+print(parking_lot)

@@ -17,3 +17,28 @@ Enter Input : EN 1,EN 2,D,D,D,EN 3,D
 Empty
 3
 """
+
+usrinp = input("Enter Input : ")
+usrlist = [x.strip() for x in usrinp.split(',')]
+UserQueue = []
+Output = []
+
+for step in usrlist:
+    if step == 'D':
+        if UserQueue:
+            Output.append(UserQueue.pop(0))
+            continue
+        else:
+            Output.append("Empty")
+
+    try:
+        stepsplit = step.split(' ')
+        if stepsplit[0] == 'EN':
+            UserQueue.append(stepsplit[1])
+        elif stepsplit[0] == 'ES':
+            UserQueue = [stepsplit[1]] + UserQueue
+    except:
+        pass
+
+for p in Output:
+    print(p)
