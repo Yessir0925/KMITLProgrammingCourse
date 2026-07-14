@@ -18,3 +18,45 @@ Pop 10 size in queue is 3
 Pop 20 size in queue is 2
 Number in Queue is :  ['30', '40']
 """
+
+usrinp = input("Enter Input : ")
+usrinplist = [x for x in usrinp.split(',')]
+
+class Queue:
+    def __init__(self):
+        self.queue = []
+        self.counter = 0
+    
+    def runtasks(self, tasklist):
+        for i in range(len(tasklist)):
+            try:
+                if tasklist[0] == "D":
+                    self.dequeue()
+                elif (tasklist[0].split())[0] == "E":
+                    self.enqueue(tasklist)
+            except Exception as e:
+                print("Error: ", e)
+
+    def enqueue(self, tasklist):
+        if tasklist:
+            taskrun = (tasklist[0].split())[1]
+            tasklist.pop(0)
+            self.queue.append(taskrun)
+            print(f"Add {taskrun} index is {self.counter}")
+            self.counter += 1
+        else:
+            print("Empty")
+    
+    def dequeue(self):
+        if self.queue:
+            self.counter -= 1
+            print(f"Pop {self.queue.pop(0)} size in queue is {self.counter}")
+        else:
+            print("Empty")
+
+    def __str__(self):
+        return f"Number in Queue is :  {self.queue}"
+
+NewQueue = Queue()
+NewQueue.runtasks(usrinplist)
+print(NewQueue)
