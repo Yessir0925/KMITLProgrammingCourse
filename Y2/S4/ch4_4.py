@@ -29,3 +29,34 @@ Empty
 101
 201
 """
+
+inp = input("Enter Input : ")
+employees, commands = inp.split("/")
+
+emp_to_dept = {}
+for item in employees.split(","):
+    dept, emp = map(int, item.split())
+    emp_to_dept[emp] = dept
+
+dept_queue = []
+member_queue = {}
+
+for cmd in commands.split(","):
+    if cmd == "D":
+        if len(dept_queue) == 0:
+            print("Empty")
+        else:
+            dept = dept_queue[0]
+            emp = member_queue[dept].pop(0)
+            print(emp)
+            if len(member_queue[dept]) == 0:
+                dept_queue.pop(0)
+                del member_queue[dept]
+    else:
+        _, emp = cmd.split()
+        emp = int(emp)
+        dept = emp_to_dept[emp]
+        if dept not in member_queue:
+            member_queue[dept] = []
+            dept_queue.append(dept)
+        member_queue[dept].append(emp)
