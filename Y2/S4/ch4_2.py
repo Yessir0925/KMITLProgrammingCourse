@@ -31,14 +31,12 @@ for step in usrlist:
         else:
             Output.append("Empty")
 
-    try:
+    else:
         stepsplit = step.split(' ')
         if stepsplit[0] == 'EN':
             UserQueue.append(stepsplit[1])
         elif stepsplit[0] == 'ES':
             UserQueue = [stepsplit[1]] + UserQueue
-    except:
-        pass
 
 for p in Output:
     print(p)
