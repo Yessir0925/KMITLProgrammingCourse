@@ -45,3 +45,30 @@ Enter 2 Lists : 1,3,5,7,10,20,22 4,6,7,8,15
 LL1 : 1 3 5 7 10 20 22 
 LL2 : 4 6 7 8 15 
 Merge Result : 1 3 4 5 6 7 7 8 10 15 20 22 """
+
+class node:
+    def __init__(self,data,next = None ):
+        ### Code Here ###
+    def __str__(self):
+        ### Code Here ###
+
+def createList(l=[]):
+    ### Code Here ###
+
+def printList(H):
+    ### Code Here ###
+
+def mergeOrderesList(p,q):
+    ### Code Here ###
+
+#################### FIX comand ####################   
+# input only a number save in L1,L2
+LL1 = createList(L1)
+LL2 = createList(L2)
+print('LL1 : ',end='')
+printList(LL1)
+print('LL2 : ',end='')
+printList(LL2)
+m = mergeOrderesList(LL1,LL2)
+print('Merge Result : ',end='')
+printList(m)

@@ -35,3 +35,9 @@ reverse : 4->3->0
 index = 1 and data = 2
 linked list : 0->2->3->4
 reverse : 4->3->2->0"""
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.previous = None
