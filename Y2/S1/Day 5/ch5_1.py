@@ -54,8 +54,9 @@ class LinkedList:
         if self.head == None:
             self.head = Node(item)
         elif self.head != None:
-            item.next = self.head
-            self.head = Node(item)
+            new = Node(item)
+            new.next = self.head
+            self.head = new
 
     def append(self, item):
         if self.head == None:
@@ -66,25 +67,25 @@ class LinkedList:
                 if cur.next == None:
                     cur.next = Node(item)
                     return
-                cur = self.head.next
+                cur = cur.next
 
     def index(self, item):
-        if self.isEmpty() == "Empty":
-            return
-        counter = 1
+        if self.isEmpty():
+            return -1
+        counter = 0
         cur = self.head
         while True:
-            if cur.next == None and cur != item:
+            if cur.next == None and cur.value != item:
                 return -1
-            elif cur == item:
+            elif cur.value == item:
                 return counter
             else:
                 cur = cur.next
                 counter += 1
 
     def search(self, item):
-        if self.isEmpty() == "Empty":
-            return
+        if self.isEmpty():
+            return "Not Found"
         cur = self.head
         if self.index(item) == -1:
             return "Not Found"
@@ -93,17 +94,19 @@ class LinkedList:
 
     def size(self):
         if self.isEmpty():
-            return self.isEmpty()
+            return "0"
         c = 1
         cur = self.head
         while True:
             if cur.next == None:
-                return cur
+                return c
             else:
                 c += 1
-                cur = self.head.next
+                cur = cur.next
                 
     def pop(self, pos):
+        if self.isEmpty() or pos < 0:
+            return "Out of Range"
         if pos == 0:
             self.head = self.head.next
             return "Success"
@@ -114,6 +117,8 @@ class LinkedList:
                 cur = cur.next
             else:
                 return "Out of Range"
+        if cur.next == None:
+            return "Out of Range"
         cur.next = cur.next.next
         return "Success"
 
@@ -136,7 +141,6 @@ for i in inp:
         if k == "Success":
             print(f"{k} | {before}-> {L}")
         else:
-            print(f"{k} | {L} {before} = {L}")
+            print(f"{k} | Empty")
 
 print("Linked List :", L)
-print("===== End of program =====")

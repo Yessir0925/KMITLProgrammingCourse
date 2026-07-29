@@ -1,2 +1,4 @@
 Temp/
 .vscode/
+*_cache/
+**/__pycache__/
