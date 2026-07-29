@@ -32,94 +32,83 @@ Linked List : Empty
 class Node:
     def __init__(self, value):
         self.value = value
-        self.next = None
+        self.next: "Node | None" = None
 
 class LinkedList:
     def __init__(self):
-        self.head = None
+        self.head: "Node | None" = None
 
     def __str__(self):
-        if self.isEmpty():
+        if self.head is None:
             return "Empty"
-        cur, s = self.head, str(self.head.value) + " "
-        while cur.next != None:
-            s += str(cur.next.value) + " "
+        cur = self.head
+        s = str(cur.value) + " "
+        while cur.next is not None:
             cur = cur.next
+            s += str(cur.value) + " "
         return s
 
     def isEmpty(self):
-        return self.head == None
+        return self.head is None
 
     def addHead(self, item):
-        if self.head == None:
-            self.head = Node(item)
-        elif self.head != None:
-            new = Node(item)
-            new.next = self.head
-            self.head = new
+        new = Node(item)
+        new.next = self.head
+        self.head = new
 
     def append(self, item):
-        if self.head == None:
+        if self.head is None:
             self.addHead(item)
-        else:
-            cur = self.head
-            while True:
-                if cur.next == None:
-                    cur.next = Node(item)
-                    return
-                cur = cur.next
+            return
+        cur = self.head
+        while cur.next is not None:
+            cur = cur.next
+        cur.next = Node(item)
 
     def index(self, item):
-        if self.isEmpty():
+        if self.head is None:
             return -1
         counter = 0
         cur = self.head
         while True:
-            if cur.next == None and cur.value != item:
-                return -1
-            elif cur.value == item:
+            if cur.value == item:
                 return counter
-            else:
-                cur = cur.next
-                counter += 1
+            if cur.next is None:
+                return -1
+            cur = cur.next
+            counter += 1
 
     def search(self, item):
-        if self.isEmpty():
-            return "Not Found"
-        cur = self.head
         if self.index(item) == -1:
             return "Not Found"
-        else:
-            return "Found"
+        return "Found"
 
     def size(self):
-        if self.isEmpty():
+        if self.head is None:
             return "0"
         c = 1
         cur = self.head
-        while True:
-            if cur.next == None:
-                return c
-            else:
-                c += 1
-                cur = cur.next
-                
+        while cur.next is not None:
+            c += 1
+            cur = cur.next
+        return c
+
     def pop(self, pos):
-        if self.isEmpty() or pos < 0:
+        if self.head is None or pos < 0:
             return "Out of Range"
         if pos == 0:
             self.head = self.head.next
             return "Success"
 
         cur = self.head
-        for i in range(pos-1):
-            if cur.next != None:
-                cur = cur.next
-            else:
+        for _ in range(pos - 1):
+            if cur.next is None:
                 return "Out of Range"
-        if cur.next == None:
+            cur = cur.next
+        if cur.next is None:
             return "Out of Range"
-        cur.next = cur.next.next
+        removed = cur.next
+        cur.next = removed.next
         return "Success"
 
 L = LinkedList()
