@@ -12,6 +12,13 @@ Write a class for a Singly Linked List that includes the following methods:
     size(self): Returns the size of the Linked List.
     pop(self, pos): Removes the item at the given index pos from the Linked List and returns Success or Out of Range
 
+append -> AP
+addHead -> AH
+search -> SE
+index -> ID
+size -> SI
+pop -> PO
+    
 
 Enter Input : AP I,AP Love,AP KMITL,AP 2020
 Linked List : I Love KMITL 2020 
@@ -39,11 +46,23 @@ class LinkedList:
     def isEmpty(self):
         return self.head == None
 
-    def append(self, item):
-        # Code Here
-
     def addHead(self, item):
-        # Code Here
+        if self.head == None:
+            self.head = item
+        else:
+            item.next = self.head
+            self.head = item
+
+    def append(self, item):
+        if self.head == None:
+            self.addHead(item)
+        else:
+            cur = self.head
+            while cur.next != None:
+                if cur.next == None:
+                    pass
+                cur = cur.next
+
 
     def search(self, item):
         # Code Here
@@ -56,6 +75,7 @@ class LinkedList:
 
     def pop(self, pos):
         # Code Here
+
 L = LinkedList()
 inp = input('Enter Input : ').split(',')
 for i in inp:
