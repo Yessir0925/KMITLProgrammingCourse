@@ -20,8 +20,12 @@ size -> SI
 pop -> PO
     
 
-Enter Input : AP I,AP Love,AP KMITL,AP 2020
-Linked List : I Love KMITL 2020 
+Enter Input : SE 2020,SI,ID KMITL,PO 1
+Not Found 2020 in Empty
+Linked List size = 0 : Empty
+Index (KMITL) = -1 : Empty
+Out of Range | Empty
+Linked List : Empty
 """
 
 
@@ -48,33 +52,70 @@ class LinkedList:
 
     def addHead(self, item):
         if self.head == None:
-            self.head = item
-        else:
+            self.head = Node(item)
+        elif self.head != None:
             item.next = self.head
-            self.head = item
+            self.head = Node(item)
 
     def append(self, item):
         if self.head == None:
             self.addHead(item)
         else:
             cur = self.head
-            while cur.next != None:
+            while True:
                 if cur.next == None:
-                    pass
-                cur = cur.next
-
-
-    def search(self, item):
-        # Code Here
+                    cur.next = Node(item)
+                    return
+                cur = self.head.next
 
     def index(self, item):
-        # Code Here
+        if self.isEmpty() == "Empty":
+            return
+        counter = 1
+        cur = self.head
+        while True:
+            if cur.next == None and cur != item:
+                return -1
+            elif cur == item:
+                return counter
+            else:
+                cur = cur.next
+                counter += 1
+
+    def search(self, item):
+        if self.isEmpty() == "Empty":
+            return
+        cur = self.head
+        if self.index(item) == -1:
+            return "Not Found"
+        else:
+            return "Found"
 
     def size(self):
-        # Code Here
-
+        if self.isEmpty():
+            return self.isEmpty()
+        c = 1
+        cur = self.head
+        while True:
+            if cur.next == None:
+                return cur
+            else:
+                c += 1
+                cur = self.head.next
+                
     def pop(self, pos):
-        # Code Here
+        if pos == 0:
+            self.head = self.head.next
+            return "Success"
+
+        cur = self.head
+        for i in range(pos-1):
+            if cur.next != None:
+                cur = cur.next
+            else:
+                return "Out of Range"
+        cur.next = cur.next.next
+        return "Success"
 
 L = LinkedList()
 inp = input('Enter Input : ').split(',')
@@ -95,7 +136,7 @@ for i in inp:
         if k == "Success":
             print(f"{k} | {before}-> {L}")
         else:
-            print(f"{k} | {L}")before = f"{L}"
+            print(f"{k} | {L} {before} = {L}")
 
 print("Linked List :", L)
 print("===== End of program =====")
