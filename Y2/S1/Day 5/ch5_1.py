@@ -94,7 +94,7 @@ class LinkedList:
 
     def size(self):
         if self.isEmpty():
-            return "0"
+            return 0
         c = 1
         cur = self.head
         while True:
@@ -125,22 +125,24 @@ class LinkedList:
 L = LinkedList()
 inp = input('Enter Input : ').split(',')
 for i in inp:
-    if i[:2] == "AP":
-        L.append(i[3:])
-    elif i[:2] == "AH":
-        L.addHead(i[3:])
-    elif i[:2] == "SE":
-        print(f"{L.search(i[3:])} {i[3:]} in {L}")
-    elif i[:2] == "SI":
+    i = i.strip()
+    cmd, arg = i[:2], i[3:]
+    if cmd == "AP":
+        L.append(arg)
+    elif cmd == "AH":
+        L.addHead(arg)
+    elif cmd == "SE":
+        print(f"{L.search(arg)} {arg} in {L}")
+    elif cmd == "SI":
         print(f"Linked List size = {L.size()} : {L}")
-    elif i[:2] == "ID":
-        print(f"Index ({i[3:]}) = {L.index(i[3:])} : {L}")
-    elif i[:2] == "PO":
+    elif cmd == "ID":
+        print(f"Index ({arg}) = {L.index(arg)} : {L}")
+    elif cmd == "PO":
         before = f"{L}"
-        k = L.pop(int(i[3:]))
+        k = L.pop(int(arg))
         if k == "Success":
             print(f"{k} | {before}-> {L}")
         else:
-            print(f"{k} | Empty")
+            print(f"{k} | {before}")
 
 print("Linked List :", L)
