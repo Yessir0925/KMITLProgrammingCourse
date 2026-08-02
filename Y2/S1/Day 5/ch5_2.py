@@ -35,144 +35,143 @@ Input format is as follows:
 """
 
 class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next: "Node | None" = None
-        self.previous: "Node | None" = None
+    def __init__(self, data: int):
+        self.data: int = data
+        self.next: Node | None = None
+        self.previous: Node | None = None
 
-class LinkedList:
+
+class DoublyLinkedList:
     def __init__(self):
-        self.head: "Node | None" = None
-        self.tail: "Node | None" = None
-        self.length = 0
+        self.head: Node | None = None
+        self.tail: Node | None = None
 
-    def __str__(self):
-        if self.head is None:
-            return ""
+    def isEmpty(self) -> bool:
+        return self.head is None
+
+    def __str__(self) -> str:
         cur = self.head
-        parts = [str(cur.data)]
-        while cur.next is not None:
-            cur = cur.next
-            parts.append(str(cur.data))
-        return "->".join(parts)
+        out = []
 
-    def str_reverse(self):
-        if self.tail is None:
-            return ""
+        while cur is not None:
+            out.append(str(cur.data))
+            cur = cur.next
+
+        return "->".join(out)
+
+    def str_reverse(self) -> str:
         cur = self.tail
-        parts = [str(cur.data)]
-        while cur.previous is not None:
+        out = []
+
+        while cur is not None:
+            out.append(str(cur.data))
             cur = cur.previous
-            parts.append(str(cur.data))
-        return "->".join(parts)
 
-    def isEmpty(self):
-        return self.head is None and self.tail is None
+        return "->".join(out)
 
-    def append(self, data):
-        #Command - A
-        new = Node(data)
-        self.length += 1
+    def append(self, data: int) -> None:
+        node = Node(data)
+
         if self.head is None:
-            self.head = new
-        if self.tail is None:
-            self.tail = new
-            return
-        cur = self.tail
-        cur.next = new
-        new.previous = cur
-        self.tail = new
-
-    def insert(self, index, data):
-        #Command - I
-    
-        new = Node(data)
-        if self.head is None or index <= 0:
-            new.next = self.head
-            if self.head is not None:
-                self.head.previous = new
-            self.head = new
-            if self.tail is None:
-                self.tail = new
-            self.length += 1
+            self.head = self.tail = node
             return
 
+        assert self.tail is not None
+
+        self.tail.next = node
+        node.previous = self.tail
+        self.tail = node
+
+    def addHead(self, data: int) -> None:
+        node = Node(data)
+
+        if self.head is None:
+            self.head = self.tail = node
+            return
+
+        node.next = self.head
+        self.head.previous = node
+        self.head = node
+
+    def length(self) -> int:
+        cnt = 0
         cur = self.head
-        counter = 0
-        while counter < index and cur.next is not None:
+
+        while cur is not None:
+            cnt += 1
             cur = cur.next
-            counter += 1
 
-        if counter == index:
-            new.previous = cur.previous
-            new.next = cur
-            cur.previous.next = new
-            cur.previous = new
-        else:
-            new.previous = self.tail
-            self.tail.next = new
-            self.tail = new
-        self.length += 1
+        return cnt
 
-    def remove(self, data):
-        index = 0
-        if self.head is None:
-            return "Not Found!"
+    def insert(self, index: int, data: int) -> None:
+        if index < 0 or index > self.length():
+            print("Data cannot be added")
+            return
+
+        print(f"index = {index} and data = {data}")
+
+        if index == 0:
+            self.addHead(data)
+            return
+
+        if index == self.length():
+            self.append(data)
+            return
+
         cur = self.head
 
-        while True:
+        for _ in range(index):
+            assert cur is not None
+            cur = cur.next
+
+        assert cur is not None
+        assert cur.previous is not None
+
+        node = Node(data)
+
+        prev = cur.previous
+
+        prev.next = node
+        node.previous = prev
+
+        node.next = cur
+        cur.previous = node
+
+    def remove(self, data: int) -> None:
+        cur = self.head
+        idx = 0
+
+        while cur is not None:
             if cur.data == data:
-                if cur.next is None:
-                    cur.previous.next = None
-                    return index
-                cur.next.previous = cur.previous
-                if index == 0:
-                    self.head = cur.next
-                    return index
-                cur.previous.next = cur.next
-                return index
-            if cur.next is None:
-                return "Not Found!"
+                break
             cur = cur.next
-            index += 1
-        return "Not Found!"
+            idx += 1
 
-    
-
-L = LinkedList()
-inp = input('Enter Input : ').split(',')
-for i in inp:
-    i = i.strip()
-    cmd, arg = i.split(" ", 1)
-    if cmd == "A":
-        L.append(arg)
-        print(f"linked list : {L}")
-        print(f"reverse : {L.str_reverse()}")
-    elif cmd == "Ab":
-        if int(arg) < 0:
-            print("Data cannot be added")
-            raise SystemExit
-        L.insert(0, arg)
-        print(f"linked list : {L}")
-        print(f"reverse : {L.str_reverse()}")
-    elif cmd == "I":
-        index, data = arg.split(":")
-        index = int(index)
-        if index < 0 or index > L.length:
-            print("Data cannot be added")
-        else:
-            L.insert(index, data)
-            print(f"index = {index} and data = {data}")
-        print(f"linked list : {L}")
-        print(f"reverse : {L.str_reverse()}")
-    elif cmd == "R":
-        removed = L.remove(arg)
-        if removed == "Not Found!":
+        if cur is None:
             print("Not Found!")
-            print(f"linked list : ")
-            print(f"reverse : ")
-            continue
-        print(f"removed : {arg} from index : {removed}" )
-        #1 from index : 0
-        print(f"linked list : {L}")
-        print(f"reverse : {L.str_reverse()}")
+            return
+
+        print(f"removed : {data} from index : {idx}")
+
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+            return
+
+        if cur == self.head:
+            self.head = cur.next
+            assert self.head is not None
+            self.head.previous = None
+            return
+
+        if cur == self.tail:
+            self.tail = cur.previous
+            assert self.tail is not None
+            self.tail.next = None
+            return
+
+        assert cur.previous is not None
+        assert cur.next is not None
+
+        cur.previous.next = cur.next
+        cur.next.previous = cur.previous

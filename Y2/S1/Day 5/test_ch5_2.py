@@ -103,9 +103,9 @@ reverse : 10->59->1->0->0
 """
     assert run_script(input_text) == expected
     
-def test_case4():
-
-"""Enter Input : I 0:0,R 0,A 0,A 1,R 0,R 1,Ab 0, Ab 1, R 1, R 0,A 1, Ab 0,R 0,R 1
+def test_case5():
+    input_text = "I 0:0,R 0,A 0,A 1,R 0,R 1,Ab 0, Ab 1, R 1, R 0,A 1, Ab 0,R 0,R 1"
+    expected = """Enter Input : I 0:0,R 0,A 0,A 1,R 0,R 1,Ab 0, Ab 1, R 1, R 0,A 1, Ab 0,R 0,R 1
 index = 0 and data = 0
 linked list : 0
 reverse : 0
@@ -143,3 +143,34 @@ removed : 1 from index : 0
 linked list : 
 reverse : 
 """
+    assert run_script(input_text) == expected
+
+def test_case6():
+    input_text = "I 1:1,I 0:0,I 0:1,I 0:2,I 3:-1,I -1:-1,I 10:5,I 2:0"
+    expected = """Enter Input : I 1:1,I 0:0,I 0:1,I 0:2,I 3:-1,I -1:-1,I 10:5,I 2:0
+Data cannot be added
+linked list : 
+reverse : 
+index = 0 and data = 0
+linked list : 0
+reverse : 0
+index = 0 and data = 1
+linked list : 1->0
+reverse : 0->1
+index = 0 and data = 2
+linked list : 2->1->0
+reverse : 0->1->2
+index = 3 and data = -1
+linked list : 2->1->0->-1
+reverse : -1->0->1->2
+Data cannot be added
+linked list : 2->1->0->-1
+reverse : -1->0->1->2
+Data cannot be added
+linked list : 2->1->0->-1
+reverse : -1->0->1->2
+index = 2 and data = 0
+linked list : 2->1->0->0->-1
+reverse : -1->0->0->1->2
+"""
+    assert run_script(input_text) == expected
