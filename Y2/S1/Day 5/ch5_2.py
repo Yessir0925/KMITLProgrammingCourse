@@ -48,7 +48,7 @@ class LinkedList:
 
     def __str__(self):
         if self.head is None:
-            return "Empty"
+            return ""
         cur = self.head
         parts = [str(cur.data)]
         while cur.next is not None:
@@ -58,7 +58,7 @@ class LinkedList:
 
     def str_reverse(self):
         if self.tail is None:
-            return "Empty"
+            return ""
         cur = self.tail
         parts = [str(cur.data)]
         while cur.previous is not None:
@@ -67,13 +67,14 @@ class LinkedList:
         return "->".join(parts)
 
     def isEmpty(self):
-        if self.head is None and self.tail is None:
-            return "Empty"
+        return self.head is None and self.tail is None
 
     def append(self, data):
+        #Command - A
         new = Node(data)
+        self.length += 1
         if self.head is None:
-                    self.head = new
+            self.head = new
         if self.tail is None:
             self.tail = new
             return
@@ -81,9 +82,10 @@ class LinkedList:
         cur.next = new
         new.previous = cur
         self.tail = new
-        self.length += 1
 
     def insert(self, index, data):
+        #Command - I
+    
         new = Node(data)
         if self.head is None or index <= 0:
             new.next = self.head
@@ -113,7 +115,29 @@ class LinkedList:
         self.length += 1
 
     def remove(self, data):
-        pass
+        index = 0
+        if self.head is None:
+            return "Not Found!"
+        cur = self.head
+
+        while True:
+            if cur.data == data:
+                if cur.next is None:
+                    cur.previous.next = None
+                    return index
+                cur.next.previous = cur.previous
+                if index == 0:
+                    self.head = cur.next
+                    return index
+                cur.previous.next = cur.next
+                return index
+            if cur.next is None:
+                return "Not Found!"
+            cur = cur.next
+            index += 1
+        return "Not Found!"
+
+    
 
 L = LinkedList()
 inp = input('Enter Input : ').split(',')
@@ -125,23 +149,30 @@ for i in inp:
         print(f"linked list : {L}")
         print(f"reverse : {L.str_reverse()}")
     elif cmd == "Ab":
+        if int(arg) < 0:
+            print("Data cannot be added")
+            raise SystemExit
         L.insert(0, arg)
         print(f"linked list : {L}")
         print(f"reverse : {L.str_reverse()}")
     elif cmd == "I":
         index, data = arg.split(":")
         index = int(index)
-        L.insert(index, data)
-        print(f"index = {index} and data = {data}")
+        if index < 0 or index > L.length:
+            print("Data cannot be added")
+        else:
+            L.insert(index, data)
+            print(f"index = {index} and data = {data}")
         print(f"linked list : {L}")
         print(f"reverse : {L.str_reverse()}")
     elif cmd == "R":
         removed = L.remove(arg)
-        print(f"removed : {removed}")
+        if removed == "Not Found!":
+            print("Not Found!")
+            print(f"linked list : ")
+            print(f"reverse : ")
+            continue
+        print(f"removed : {arg} from index : {removed}" )
+        #1 from index : 0
         print(f"linked list : {L}")
         print(f"reverse : {L.str_reverse()}")
-
-"""    append -> A
-    add_before -> Ab
-    insert -> I
-    remove -> R"""

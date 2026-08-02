@@ -49,3 +49,97 @@ linked list : 0
 reverse : 0
 """
     assert run_script(input_text) == expected
+
+def test_case3():
+    input_text = "R 0,A 1,A 1,A 2,R 1"
+    expected = """Enter Input : R 0,A 1,A 1,A 2,R 1
+Not Found!
+linked list : 
+reverse : 
+linked list : 1
+reverse : 1
+linked list : 1->1
+reverse : 1->1
+linked list : 1->1->2
+reverse : 2->1->1
+removed : 1 from index : 0
+linked list : 1->2
+reverse : 2->1
+"""
+    assert run_script(input_text) == expected
+
+def test_case4():
+    input_text = "R 0, I -1:0, Ab 0, A 1, R 0, I 0:0, A 99, I 3:59, I 0:0, R 99, A 10"
+    expected = """Enter Input : R 0, I -1:0, Ab 0, A 1, R 0, I 0:0, A 99, I 3:59, I 0:0, R 99, A 10
+Not Found!
+linked list : 
+reverse : 
+Data cannot be added
+linked list : 
+reverse : 
+linked list : 0
+reverse : 0
+linked list : 0->1
+reverse : 1->0
+removed : 0 from index : 0
+linked list : 1
+reverse : 1
+index = 0 and data = 0
+linked list : 0->1
+reverse : 1->0
+linked list : 0->1->99
+reverse : 99->1->0
+index = 3 and data = 59
+linked list : 0->1->99->59
+reverse : 59->99->1->0
+index = 0 and data = 0
+linked list : 0->0->1->99->59
+reverse : 59->99->1->0->0
+removed : 99 from index : 3
+linked list : 0->0->1->59
+reverse : 59->1->0->0
+linked list : 0->0->1->59->10
+reverse : 10->59->1->0->0
+"""
+    assert run_script(input_text) == expected
+    
+def test_case4():
+
+"""Enter Input : I 0:0,R 0,A 0,A 1,R 0,R 1,Ab 0, Ab 1, R 1, R 0,A 1, Ab 0,R 0,R 1
+index = 0 and data = 0
+linked list : 0
+reverse : 0
+removed : 0 from index : 0
+linked list : 
+reverse : 
+linked list : 0
+reverse : 0
+linked list : 0->1
+reverse : 1->0
+removed : 0 from index : 0
+linked list : 1
+reverse : 1
+removed : 1 from index : 0
+linked list : 
+reverse : 
+linked list : 0
+reverse : 0
+linked list : 1->0
+reverse : 0->1
+removed : 1 from index : 0
+linked list : 0
+reverse : 0
+removed : 0 from index : 0
+linked list : 
+reverse : 
+linked list : 1
+reverse : 1
+linked list : 0->1
+reverse : 1->0
+removed : 0 from index : 0
+linked list : 1
+reverse : 1
+removed : 1 from index : 0
+linked list : 
+reverse : 
+"""
