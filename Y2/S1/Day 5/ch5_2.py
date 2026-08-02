@@ -35,41 +35,37 @@ Input format is as follows:
 """
 
 class Node:
-    def __init__(self, data: int):
-        self.data: int = data
-        self.next: Node | None = None
-        self.previous: Node | None = None
+    def __init__(self, data):
+        self.data = data
+        self.next: "Node | None" = None
+        self.previous: "Node | None" = None
 
 
 class DoublyLinkedList:
     def __init__(self):
-        self.head: Node | None = None
-        self.tail: Node | None = None
+        self.head: "Node | None" = None
+        self.tail: "Node | None" = None
 
-    def isEmpty(self) -> bool:
+    def isEmpty(self):
         return self.head is None
 
-    def __str__(self) -> str:
+    def __str__(self):
         cur = self.head
         out = []
-
-        while cur is not None:
+        while cur:
             out.append(str(cur.data))
             cur = cur.next
-
         return "->".join(out)
 
-    def str_reverse(self) -> str:
+    def str_reverse(self):
         cur = self.tail
         out = []
-
-        while cur is not None:
+        while cur:
             out.append(str(cur.data))
             cur = cur.previous
-
         return "->".join(out)
 
-    def append(self, data: int) -> None:
+    def append(self, data):
         node = Node(data)
 
         if self.head is None:
@@ -77,12 +73,11 @@ class DoublyLinkedList:
             return
 
         assert self.tail is not None
-
         self.tail.next = node
         node.previous = self.tail
         self.tail = node
 
-    def addHead(self, data: int) -> None:
+    def addHead(self, data):
         node = Node(data)
 
         if self.head is None:
@@ -93,17 +88,15 @@ class DoublyLinkedList:
         self.head.previous = node
         self.head = node
 
-    def length(self) -> int:
+    def length(self):
         cnt = 0
         cur = self.head
-
-        while cur is not None:
+        while cur:
             cnt += 1
             cur = cur.next
-
         return cnt
 
-    def insert(self, index: int, data: int) -> None:
+    def insert(self, index, data):
         if index < 0 or index > self.length():
             print("Data cannot be added")
             return
@@ -119,29 +112,27 @@ class DoublyLinkedList:
             return
 
         cur = self.head
-
         for _ in range(index):
             assert cur is not None
             cur = cur.next
 
-        assert cur is not None
-        assert cur.previous is not None
-
         node = Node(data)
 
+        assert cur is not None
         prev = cur.previous
 
+        assert prev is not None
         prev.next = node
         node.previous = prev
 
         node.next = cur
         cur.previous = node
 
-    def remove(self, data: int) -> None:
+    def remove(self, data):
         cur = self.head
         idx = 0
 
-        while cur is not None:
+        while cur:
             if cur.data == data:
                 break
             cur = cur.next
@@ -172,6 +163,30 @@ class DoublyLinkedList:
 
         assert cur.previous is not None
         assert cur.next is not None
-
         cur.previous.next = cur.next
         cur.next.previous = cur.previous
+
+
+dll = DoublyLinkedList()
+
+commands = input("Enter Input : ").split(",")
+
+for cmd in commands:
+    cmd = cmd.strip()
+
+    if cmd.startswith("Ab "):
+        dll.addHead(int(cmd.split()[1]))
+
+    elif cmd.startswith("A "):
+        dll.append(int(cmd.split()[1]))
+
+    elif cmd.startswith("I "):
+        arg = cmd[2:]
+        index, data = arg.split(":")
+        dll.insert(int(index), int(data))
+
+    elif cmd.startswith("R "):
+        dll.remove(int(cmd.split()[1]))
+
+    print("linked list :", dll)
+    print("reverse :", dll.str_reverse())

@@ -2,6 +2,21 @@ import subprocess
 import sys
 from pathlib import Path
 
+"""Instructions for Merging Two Linked Lists Without Creating a LinkedList Class
+
+    Node Class:
+        Ensure you have a Node class that contains a value and a reference to the next Node.
+
+    Functions to Implement:
+        createList(): Creates a LinkedList from a given list of values and returns the head of the LinkedList.
+        printList(): Prints all the elements of a LinkedList starting from the given head.
+        mergeOrderList(): Merges two LinkedLists into one in ascending order of their values and returns the head of the merged LinkedList.
+
+
+****Using sort() is prohibited. If found, no points will be awarded.****
+
+****Creating a LinkedList class is prohibited.****"""
+
 SCRIPT = Path(__file__).parent / "ch5_3.py"
 
 
