@@ -169,16 +169,11 @@ def rebuild(buckets):
 
 
 nums = list(map(int, input("Enter Input : ").split()))
-
 original = LinkedList()
-
 for n in nums:
     original.append(n)
-
 rounds = maxDigit(nums)
-
 print("-" * 60)
-
 if rounds == 0:
     print("0 Time(s)")
     print("Before Radix Sort :", original)
@@ -191,20 +186,17 @@ for n in nums:
     current.append(n)
 
 for r in range(rounds):
-
     buckets = []
     for _ in range(10):
         buckets.append(LinkedList())
 
     cur = current.head
-
     while cur is not None:
         d = digit(cur.data, r)
         buckets[d].append(cur.data)
         cur = cur.next
 
     buckets = [reorderBucket(bucket) for bucket in buckets]
-
     print("Round :", r + 1)
 
     for i in range(10):
@@ -212,7 +204,6 @@ for r in range(rounds):
         buckets[i].printBucket()
 
     print("-" * 60)
-
     current = rebuild(buckets)
 
 print(f"{rounds} Time(s)")
