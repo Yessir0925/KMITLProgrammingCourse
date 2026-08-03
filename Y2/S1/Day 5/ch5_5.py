@@ -130,7 +130,7 @@ def maxDigit(values):
 
 
 def reorderBucket(bucket):
-    """Non-negative values keep their relative order first, then negative values."""
+    #Non-negative values keep their relative order first, then negative values.
     merged = LinkedList()
 
     cur = bucket.head
