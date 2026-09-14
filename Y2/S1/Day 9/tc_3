@@ -1,0 +1,33 @@
+Receive a single integer input and display the result as follows:
+
+- If the input is in ascending order without any duplicate digits, display "Metadrome".
+
+- If the input is in ascending order with duplicate digits, display "Plaindrome".
+
+- If the input is in descending order without any duplicate digits, display "Katadrome".
+
+- If the input is in descending order with duplicate digits, display "Nialpdrome".
+
+- If all digits in the input are the same, display "Repdrome".
+
+- If none of the above conditions are met, display "Nondrome".
+
+****** Do not use built-in sorting functions. Write your own sort function instead.
+
+Enter Input : 1357
+Metadrome
+
+Enter Input : 12344
+Plaindrome
+
+Enter Input : 7531
+Katadrome
+
+Enter Input : 9874441
+Nialpdrome
+
+Enter Input : 666
+Repdrome
+
+Enter Input : 1985
+Nondrome

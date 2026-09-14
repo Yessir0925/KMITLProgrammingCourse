@@ -1,0 +1,50 @@
+Write a Python program that accepts a sequence of integers.
+
+
+Use the Quick Sort algorithm to sort them using three different pivot selection strategies:
+
+
+- First element
+
+- Last element
+
+- Middle element
+
+
+Output the number of comparisons, as shown in the examples.
+
+ *** Quick sort ***
+Enter a sequence of integers : 9 8 7 6 5 4 3 2 1 0
+
+Number of comparisons for each pivot strategy:
+First Pivot: 45 comparisons
+Last Pivot: 45 comparisons
+Middle Pivot: 22 comparisons
+===== End of program =====
+
+ *** Quick sort ***
+Enter a sequence of integers : 1 2 3 4 5 6 7 8 9 0
+
+Number of comparisons for each pivot strategy:
+First Pivot: 25 comparisons
+Last Pivot: 45 comparisons
+Middle Pivot: 20 comparisons
+===== End of program =====
+
+ *** Quick sort ***
+Enter a sequence of integers : 23 5 17 8 42  3 19 14 27 9 31 6 11 20 2 15
+
+Number of comparisons for each pivot strategy:
+First Pivot: 50 comparisons
+Last Pivot: 42 comparisons
+Middle Pivot: 48 comparisons
+===== End of program =====
+
+ *** Quick sort ***
+Enter a sequence of integers : 34 1 28 12 7 25 16 4 39 10 22 18 30 5 13 21
+
+Number of comparisons for each pivot strategy:
+First Pivot: 50 comparisons
+Last Pivot: 41 comparisons
+Middle Pivot: 61 comparisons
+===== End of program =====
