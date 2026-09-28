@@ -1,0 +1,72 @@
+ ***** Fun with hashing *****
+Enter Input : 3 2/1+1 I,OnE Love,abcde I,#$ew2 KMITL,kk KMITL,z Love
+#1	(1+1, I)
+#2	None
+#3	None
+---------------------------
+collision number 1 at 0
+#1	(1+1, I)
+#2	(OnE, Love)
+#3	None
+---------------------------
+collision number 1 at 0
+collision number 2 at 1
+Max of collisionChain
+#1	(1+1, I)
+#2	(OnE, Love)
+#3	None
+---------------------------
+#1	(1+1, I)
+#2	(OnE, Love)
+#3	(#$ew2, KMITL)
+---------------------------
+This table is full !!!!!!
+
+ ***** Fun with hashing *****
+Enter Input : 5 5/one Un,two Deux,three Trois,four Quatre,five Cinq,ten Dix,eleven Onze
+#1	None
+#2	None
+#3	(one, Un)
+#4	None
+#5	None
+---------------------------
+#1	None
+#2	(two, Deux)
+#3	(one, Un)
+#4	None
+#5	None
+---------------------------
+collision number 1 at 1
+collision number 2 at 2
+#1	(three, Trois)
+#2	(two, Deux)
+#3	(one, Un)
+#4	None
+#5	None
+---------------------------
+#1	(three, Trois)
+#2	(two, Deux)
+#3	(one, Un)
+#4	None
+#5	(four, Quatre)
+---------------------------
+collision number 1 at 1
+collision number 2 at 2
+collision number 3 at 0
+collision number 4 at 0
+collision number 5 at 2
+Max of collisionChain
+#1	(three, Trois)
+#2	(two, Deux)
+#3	(one, Un)
+#4	None
+#5	(four, Quatre)
+---------------------------
+collision number 1 at 2
+#1	(three, Trois)
+#2	(two, Deux)
+#3	(one, Un)
+#4	(ten, Dix)
+#5	(four, Quatre)
+---------------------------
+This table is full !!!!!!

@@ -1,0 +1,542 @@
+ ***** Rehashing *****
+Enter Input : 5 1 67/1 6
+Initial Table :
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+----------------------------------------
+Add : 1
+#1	None
+#2	1
+#3	None
+#4	None
+#5	None
+----------------------------------------
+Add : 6
+collision number 1 at 1
+****** Max collision - Rehash !!! ******
+#1	None
+#2	1
+#3	None
+#4	None
+#5	None
+#6	None
+#7	6
+#8	None
+#9	None
+#10	None
+#11	None
+----------------------------------------
+
+ ***** Rehashing *****
+Enter Input : 5 1 10/1 6
+Initial Table :
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+----------------------------------------
+Add : 1
+****** Data over threshold - Rehash !!! ******
+#1	None
+#2	1
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	None
+#9	None
+#10	None
+#11	None
+----------------------------------------
+Add : 6
+****** Data over threshold - Rehash !!! ******
+#1	None
+#2	1
+#3	None
+#4	None
+#5	None
+#6	None
+#7	6
+#8	None
+#9	None
+#10	None
+#11	None
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+#20	None
+#21	None
+#22	None
+#23	None
+----------------------------------------
+
+ ***** Rehashing *****
+Enter Input : 5 1 10/0 1 6 20
+Initial Table :
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+----------------------------------------
+Add : 0
+****** Data over threshold - Rehash !!! ******
+#1	0
+#2	None
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	None
+#9	None
+#10	None
+#11	None
+----------------------------------------
+Add : 1
+****** Data over threshold - Rehash !!! ******
+#1	0
+#2	1
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	None
+#9	None
+#10	None
+#11	None
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+#20	None
+#21	None
+#22	None
+#23	None
+----------------------------------------
+Add : 6
+****** Data over threshold - Rehash !!! ******
+#1	0
+#2	1
+#3	None
+#4	None
+#5	None
+#6	None
+#7	6
+#8	None
+#9	None
+#10	None
+#11	None
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+#20	None
+#21	None
+#22	None
+#23	None
+#24	None
+#25	None
+#26	None
+#27	None
+#28	None
+#29	None
+#30	None
+#31	None
+#32	None
+#33	None
+#34	None
+#35	None
+#36	None
+#37	None
+#38	None
+#39	None
+#40	None
+#41	None
+#42	None
+#43	None
+#44	None
+#45	None
+#46	None
+#47	None
+----------------------------------------
+Add : 20
+#1	0
+#2	1
+#3	None
+#4	None
+#5	None
+#6	None
+#7	6
+#8	None
+#9	None
+#10	None
+#11	None
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+#20	None
+#21	20
+#22	None
+#23	None
+#24	None
+#25	None
+#26	None
+#27	None
+#28	None
+#29	None
+#30	None
+#31	None
+#32	None
+#33	None
+#34	None
+#35	None
+#36	None
+#37	None
+#38	None
+#39	None
+#40	None
+#41	None
+#42	None
+#43	None
+#44	None
+#45	None
+#46	None
+#47	None
+----------------------------------------
+
+ ***** Rehashing *****
+Enter Input : 7 6 70/13 15 6 24 23
+Initial Table :
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+----------------------------------------
+Add : 13
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+#6	None
+#7	13
+----------------------------------------
+Add : 15
+#1	None
+#2	15
+#3	None
+#4	None
+#5	None
+#6	None
+#7	13
+----------------------------------------
+Add : 6
+collision number 1 at 6
+#1	6
+#2	15
+#3	None
+#4	None
+#5	None
+#6	None
+#7	13
+----------------------------------------
+Add : 24
+#1	6
+#2	15
+#3	None
+#4	24
+#5	None
+#6	None
+#7	13
+----------------------------------------
+Add : 23
+****** Data over threshold - Rehash !!! ******
+collision number 1 at 6
+collision number 2 at 7
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+#6	None
+#7	6
+#8	24
+#9	None
+#10	None
+#11	23
+#12	None
+#13	None
+#14	13
+#15	None
+#16	15
+#17	None
+----------------------------------------
+
+ ***** Rehashing *****
+Enter Input : 19 2 49/8741 4874 787842 77 8789 7542 751213 978458
+Initial Table :
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	None
+#9	None
+#10	None
+#11	None
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+----------------------------------------
+Add : 8741
+#1	None
+#2	8741
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	None
+#9	None
+#10	None
+#11	None
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+----------------------------------------
+Add : 4874
+#1	None
+#2	8741
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	None
+#9	None
+#10	None
+#11	4874
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+----------------------------------------
+Add : 787842
+#1	None
+#2	8741
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	787842
+#9	None
+#10	None
+#11	4874
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+----------------------------------------
+Add : 77
+collision number 1 at 1
+#1	None
+#2	8741
+#3	77
+#4	None
+#5	None
+#6	None
+#7	None
+#8	787842
+#9	None
+#10	None
+#11	4874
+#12	None
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+----------------------------------------
+Add : 8789
+#1	None
+#2	8741
+#3	77
+#4	None
+#5	None
+#6	None
+#7	None
+#8	787842
+#9	None
+#10	None
+#11	4874
+#12	8789
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	None
+----------------------------------------
+Add : 7542
+#1	None
+#2	8741
+#3	77
+#4	None
+#5	None
+#6	None
+#7	None
+#8	787842
+#9	None
+#10	None
+#11	4874
+#12	8789
+#13	None
+#14	None
+#15	None
+#16	None
+#17	None
+#18	None
+#19	7542
+----------------------------------------
+Add : 751213
+collision number 1 at 10
+collision number 2 at 11
+****** Max collision - Rehash !!! ******
+collision number 1 at 36
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	None
+#9	8741
+#10	None
+#11	None
+#12	751213
+#13	None
+#14	None
+#15	None
+#16	8789
+#17	None
+#18	None
+#19	None
+#20	None
+#21	None
+#22	None
+#23	None
+#24	None
+#25	None
+#26	None
+#27	None
+#28	787842
+#29	None
+#30	None
+#31	None
+#32	None
+#33	None
+#34	None
+#35	None
+#36	None
+#37	4874
+#38	77
+#39	None
+#40	7542
+#41	None
+----------------------------------------
+Add : 978458
+#1	None
+#2	None
+#3	None
+#4	None
+#5	None
+#6	None
+#7	None
+#8	None
+#9	8741
+#10	None
+#11	None
+#12	751213
+#13	None
+#14	None
+#15	None
+#16	8789
+#17	None
+#18	None
+#19	None
+#20	None
+#21	None
+#22	None
+#23	None
+#24	None
+#25	None
+#26	None
+#27	None
+#28	787842
+#29	None
+#30	None
+#31	None
+#32	None
+#33	None
+#34	None
+#35	978458
+#36	None
+#37	4874
+#38	77
+#39	None
+#40	7542
+#41	None
+----------------------------------------
