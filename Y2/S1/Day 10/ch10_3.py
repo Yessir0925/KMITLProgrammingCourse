@@ -26,4 +26,45 @@ class Data:
 
 class hash:
 
-    # Code Here
+    def __init__(self, size, max_collision):
+        self.size = size
+        self.max_collision = max_collision
+        self.table = [None] * size
+        self.count = 0
+
+    def is_full(self):
+        return self.count == self.size
+
+    def insert(self, data):
+        start = sum(ord(c) for c in data.key) % self.size
+        idx = start
+        i = 0
+        while self.table[idx] is not None:
+            i += 1
+            print("collision number {0} at {1}".format(i, idx))
+            if i >= self.max_collision:
+                print("Max of collisionChain")
+                return
+            idx = (start + i * i) % self.size
+        self.table[idx] = data
+        self.count += 1
+
+    def show(self):
+        for i in range(self.size):
+            print("#{0}\t{1}".format(i + 1, self.table[i]))
+        print("---------------------------")
+
+print(" ***** Fun with hashing *****")
+inp = input("Enter Input : ").split('/')
+size, max_collision = map(int, inp[0].split())
+h = hash(size, max_collision)
+for item in inp[1].split(','):
+    if h.is_full():
+        print("This table is full !!!!!!")
+        break
+    key, value = item.split()
+    h.insert(Data(key, value))
+    h.show()
+else:
+    if h.is_full():
+        print("This table is full !!!!!!")

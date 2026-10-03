@@ -35,12 +35,44 @@ def sort(inp):
 
    # built-in sort function e.g. inp.sort() not allowed
 
+   for i in range(len(inp) - 1):
+
+       for j in range(len(inp) - 1 - i):
+
+           if inp[j] > inp[j + 1]:
+
+               inp[j], inp[j + 1] = inp[j + 1], inp[j]
+
    return inp
 
 
 def binary_search(inp, q):
 
-   # code here
+   print(f"Searching for {q}")
+
+   print(f"round|\tleft|\tright|\tmiddle|")
+
+   count, left, right = 0, 0, len(inp) - 1
+
+   while left <= right:
+
+       count += 1
+
+       mid = (left + right) // 2
+
+       print(f"{count:>5}|\t{left:>4}|\t{right:>5}|\t{mid:>6}|")
+
+       if inp[mid] == q:
+
+           return [mid, count, left, right]
+
+       if inp[mid] < q:
+
+           left = mid + 1
+
+       else:
+
+           right = mid - 1
 
    return [-1, count,left,right] # base case
 
