@@ -1,0 +1,29 @@
+ *** Shortest Path (Dijkstra's Algorithm) ***
+Enter : v0 1 v1,v1 1 v2,v2 1 v3,v0 1 v3/v0 v1,v0 v2,v0 v3
+v0 to v1 : v0->v1
+v0 to v2 : v0->v1->v2
+v0 to v3 : v0->v3
+
+ *** Shortest Path (Dijkstra's Algorithm) ***
+Enter : A 1 B,A 2 C,B 1 C/A C
+A to C : A->C
+
+ *** Shortest Path (Dijkstra's Algorithm) ***
+Enter : v0 2 v1,v0 1 v3,v1 3 v3,v1 10 v4,v2 4 v0,v2 5 v5,v3 2 v2,v3 2 v4,v3 8 v5,v3 4 v6,v4 6 v6, v6 1 v5/v0 v1,v0 v2,v0 v3,v0 v4,v0 v5,v0 v6
+v0 to v1 : v0->v1
+v0 to v2 : v0->v3->v2
+v0 to v3 : v0->v3
+v0 to v4 : v0->v3->v4
+v0 to v5 : v0->v3->v6->v5
+v0 to v6 : v0->v3->v6
+
+ *** Shortest Path (Dijkstra's Algorithm) ***
+Enter : v0 2 v1,v0 1 v3,v1 3 v3,v1 10 v4,v2 4 v0,v2 5 v5,v3 2 v2,v3 2 v4,v3 8 v5,v3 4 v6,v4 6 v6, v6 1 v5/v1 v0,v2 v0,v3 v0,v4 v0,v5 v0,v6 v0,v0 v7
+v1 to v0 : v1->v3->v2->v0
+v2 to v0 : v2->v0
+v3 to v0 : v3->v2->v0
+Not have path : v4 to v0
+Not have path : v5 to v0
+Not have path : v6 to v0
+Not have path : v0 to v7
+

@@ -1,0 +1,11 @@
+ *** Graph Traversal ***
+Enter : 1 2, 1 3, 1 5, 3 4, 4 3
+Depth First Traversals : 1 2 3 4 5
+Bredth First Traversals : 1 2 3 5 4
+===== End of program =====
+
+ *** Graph Traversal ***
+Enter : a b, b c, d e, e a, c e
+Depth First Traversals : a b c e d
+Bredth First Traversals : a b e c d
+===== End of program =====
